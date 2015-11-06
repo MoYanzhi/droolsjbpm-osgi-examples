@@ -71,7 +71,7 @@ public class FireStatefulOsgiDeclarativeService {
     }
 
     public static void pause() {
-        System.out.println( "Pressure enter to contnue" );
+        System.out.println( "Pressure enter to continue" );
         Scanner keyboard = new Scanner(System.in);
         keyboard.nextLine();
     }

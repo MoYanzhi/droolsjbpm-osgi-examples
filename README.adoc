@@ -128,6 +128,99 @@ to verify if they can Drink according to their age.
 Remark : When you stop the bundle 'simple-rule', the Kie Session is stopped and this message appears in the console of Karaf
 
     KieSession disposed
+    
+=== Simple Fire Rule Example using a statefull session
+
+This demo is an example which uses a stateful session and allows to insert facts, to pause or fire rules ate different moments to ensure that we have no alarms reported.
+When an alarm is raise, then the sprinkler is called till the situation reverts to normal.
+
+[source,java]
+----
+package org.drools.example.fire.simple;
+
+import org.drools.example.model.Fire;
+import org.drools.example.model.Alarm;
+import org.drools.example.model.Room;
+import org.drools.example.model.Sprinkler;
+
+rule RaiseAlarm when
+     exists Fire()
+then
+    insert( new Alarm( "house1" ) );
+    System.out.println( "Raise the Alarm");
+end
+
+rule CancelAlarm when
+    not Fire()
+    a : Alarm()
+then
+    delete( a );
+    System.out.println( "Cancel the Alarm");
+end
+
+
+rule ThereIsAnAlarm when
+     Alarm()
+then
+    System.out.println( "there is an Alarm " );
+end
+
+rule ThereIsNoAlarm when
+     not Alarm()
+then
+    System.out.println( "there is no Alarm " );
+end
+
+
+rule TurnSprinklerOn when
+    s : Sprinkler( on == false )
+    f : Fire( room == s.room )
+then
+    modify( s ) { setOn( true ) }
+    System.out.println( "Turn on the sprinkler for room " + f.getRoom().getName() );
+end
+
+rule TurnSprinklerOff when
+    s : Sprinkler( on == true )
+    not Fire( room == s.room )
+then
+    modify( s ) { setOn( false ) }
+    System.out.println( "Turn off the sprinkler for room " + s.getRoom().getName() );
+end
+
+rule OK when
+    not Alarm()
+    not Sprinkler( on == true )
+then
+    System.out.println( "Everything is ok" );
+end
+----
+    
+When the module will be deployed and started, the followig messages will be reported on the console of JBoss Fuse 
+    
+```
+Kie Stateful Session created.
+there is no Alarm
+Everything is ok
+Pressure enter to continue
+Raise the Alarm
+there is an Alarm
+Turn on the sprinkler for room kitchen
+Turn on the sprinkler for room office
+Pressure enter to continue
+Cancel the Alarm
+there is no Alarm
+Turn off the sprinkler for room kitchen
+Turn off the sprinkler for room office
+Everything is ok
+```
+
+To interact with the system withi nthe JBoss Fuse console, you must click on the "enter" key of your keyboard.
+
+To deploy this module on the platform, use the following feature command
+
+  features:install simple-rule-stateful-inject-ds
+
 
 === Externalise the rules assets
 
