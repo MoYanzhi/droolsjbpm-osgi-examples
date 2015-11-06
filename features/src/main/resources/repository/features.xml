@@ -27,6 +27,13 @@
         <bundle>mvn:org.drools.example/simple-injection-ds/${project.version}</bundle>
     </feature>
 
+    <feature name="simple-rule-stateful-inject-ds" version="${drools.version}"
+             description="Simple Drools OSGi Example with Stateful Session :: Rule = Can drink">
+        <feature version="${drools.version}">drools-module</feature>
+        <feature version="${project.version}">lib</feature>
+        <bundle>mvn:org.drools.example/simple-injection-ds-stateful/${project.version}</bundle>
+    </feature>
+
     <feature name="simple-cdi" version="${drools.version}"
              description="Simple Drools OSGi Example :: Rule = Can drink">
         <feature version="${drools.version}">drools-module</feature>

@@ -229,6 +229,7 @@
         <!-- Drools Kie - BundleActivator, DS, CDI -->
         <module>simple</module>
         <module>simple-injection-ds</module>
+        <module>simple-injection-ds-stateful</module>
         <module>simple-cdi-weld</module>
 
         <!-- DecisionTable, externalize the resources - maven repo -->
@@ -276,7 +277,7 @@
             </activation>
             <properties>
                 <!-- Community Version used : Release or snapshot -->
-                <drools.version>6.2.0-SNAPSHOT</drools.version>
+                <drools.version>6.3.0.Final</drools.version>
                 <jboss.fuse.bom.version>6.1.0.redhat-379</jboss.fuse.bom.version>
 
                 <!-- Versions defined in the BOM for missing artifacts -->
