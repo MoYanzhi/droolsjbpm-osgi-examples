@@ -1,8 +1,12 @@
+:sectanchors:
+:toc: macro
+:toclevels: 2
+:toc-title: Table of Content
 :source-highlighter: highlights
 :data-uri:
-:toc:
+:numbered:
 
-== Drools & jBPM examples for OSGi platforms (JBoss Fuse, Karaf, Fabric8)
+= Drools & jBPM examples for OSGi platforms (JBoss Fuse, Karaf, Fabric8)
 
 toc::[]
 
